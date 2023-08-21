@@ -1,31 +1,26 @@
-class Swordsman:
-    def __init__(self, name, protection, critical_damage, chance_critical_damage):
-        self.name = name
+class CharacterUnit:
+    def __init__(self, protection, critical_damage, chance_critical_damage, hp, attack):
         self.protection = protection
         self.critical_damage = critical_damage
         self.chance_critical_damage = chance_critical_damage
-        self.hp = 100
-        self.attack = 10
+        self.hp = hp
+        self.attack = attack
 
     def get_info(self):
-        print("Name:", self.name)
         print("HP:", self.hp)
         print("Attack:", self.attack)
         print("Protection:", self.protection)
         print("Critical Damage:", self.critical_damage)
         print("Chance critical damage:", self.chance_critical_damage)
 
-    def __eq__(self, other: "Swordsman"):
+    def __eq__(self, other: "CharacterUnit"):
         return self.hp == other.hp
 
-    def __lt__(self, other: "Swordsman"):
+    def __lt__(self, other: "CharacterUnit"):
         return self.hp < other.hp
 
-    def __gt__(self, other: "Swordsman"):
+    def __gt__(self, other: "CharacterUnit"):
         return self.hp > other.hp
-
-    def fight(self, enemy):
-        enemy.hp = enemy.hp - self.attack
 
     def arena_fight(self, enemy):
         while self.hp > 0 and enemy.hp > 0:
@@ -34,88 +29,24 @@ class Swordsman:
                 enemy.fight(self)
 
             if self.hp <= 0:
-                print(f'{self.name} dead, {enemy.name} winner')
+                print(f'{self} dead, {enemy} winner')
             elif enemy.hp <= 0:
-                print(f'{enemy.name} dead, {self.name} winner')
-
-
-class Bowman:
-    def __init__(self, name, protection, critical_damage, chance_critical_damage):
-        self.name = name
-        self.protection = protection
-        self.critical_damage = critical_damage
-        self.chance_critical_damage = chance_critical_damage
-        self.hp = 110
-        self.attack = 9
-
-    def get_info(self):
-        print("Name:", self.name)
-        print("HP:", self.hp)
-        print("Attack:", self.attack)
-        print("Protection:", self.protection)
-        print("Critical Damage:", self.critical_damage)
-        print("Chance critical damage:", self.chance_critical_damage)
-
-    def __eq__(self, other: "Bowman"):
-        return self.hp == other.hp
-
-    def __lt__(self, other: "Bowman"):
-        return self.hp < other.hp
-
-    def __gt__(self, other: "Bowman"):
-        return self.hp > other.hp
+                print(f'{enemy} dead, {self} winner')
 
     def fight(self, enemy):
         enemy.hp = enemy.hp - self.attack
 
-    def arena_fight(self, enemy):
-        while self.hp > 0 and enemy.hp > 0:
-            self.fight(enemy)
-            if enemy.hp > 0:
-                enemy.fight(self)
 
-            if self.hp <= 0:
-                print(f'{self.name} dead, {enemy.name} winner')
-            elif enemy.hp <= 0:
-                print(f'{enemy.name} dead, {self.name} winner')
+class Swordsman(CharacterUnit):
+    def __init__(self, protection = 50, critical_damage = 12, chance_critical_damage = 50, hp = 120, attack = 10):
+        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
 
 
-class Magician:
-    def __init__(self, name, protection, critical_damage, chance_critical_damage):
-        self.name = name
-        self.protection = protection
-        self.critical_damage = critical_damage
-        self.chance_critical_damage = chance_critical_damage
-        self.hp = 120
-        self.attack = 8
+class Bowman(CharacterUnit):
+    def __init__(self, protection = 55, critical_damage = 11, chance_critical_damage = 60, hp = 100, attack = 11):
+        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
 
-    def get_info(self):
-        print("Name:", self.name)
-        print("HP:", self.hp)
-        print("Attack:", self.attack)
-        print("Protection:", self.protection)
-        print("Critical Damage:", self.critical_damage)
-        print("Chance critical damage:", self.chance_critical_damage)
 
-    def __eq__(self, other: "Magician"):
-        return self.hp == other.hp
-
-    def __lt__(self, other: "Magician"):
-        return self.hp < other.hp
-
-    def __gt__(self, other: "Magician"):
-        return self.hp > other.hp
-
-    def fight(self, enemy):
-        enemy.hp = enemy.hp - self.attack
-
-    def arena_fight(self, enemy):
-        while self.hp > 0 and enemy.hp > 0:
-            self.fight(enemy)
-            if enemy.hp > 0:
-                enemy.fight(self)
-
-            if self.hp <= 0:
-                print(f'{self.name} dead, {enemy.name} winner')
-            elif enemy.hp <= 0:
-                print(f'{enemy.name} dead, {self.name} winner')
+class Magician(CharacterUnit):
+    def __init__(self, protection = 60, critical_damage = 14, chance_critical_damage = 70, hp = 110, attack = 13):
+        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
