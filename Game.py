@@ -1,10 +1,9 @@
 class CharacterUnit:
-    def __init__(self, protection, critical_damage, chance_critical_damage, hp, attack):
-        self.protection = protection
-        self.critical_damage = critical_damage
-        self.chance_critical_damage = chance_critical_damage
-        self.hp = hp
-        self.attack = attack
+    hp = 20
+    attack = 5
+    protection = 10
+    critical_damage = 7
+    chance_critical_damage = 5
 
     def get_info(self):
         print("HP:", self.hp)
@@ -38,15 +37,33 @@ class CharacterUnit:
 
 
 class Swordsman(CharacterUnit):
-    def __init__(self, protection = 50, critical_damage = 12, chance_critical_damage = 50, hp = 120, attack = 10):
-        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
+    hp = 20
+    attack = 5
+    protection = 10
+    critical_damage = 7
+    chance_critical_damage = 5
+
+    def __init__(self):
+        super().__init__()
 
 
 class Bowman(CharacterUnit):
-    def __init__(self, protection = 55, critical_damage = 11, chance_critical_damage = 60, hp = 100, attack = 11):
-        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
+    hp = 19
+    attack = 4
+    protection = 10
+    critical_damage = 6
+    chance_critical_damage = 0.6
+
+    def __init__(self):
+        super().__init__()
 
 
 class Magician(CharacterUnit):
-    def __init__(self, protection = 60, critical_damage = 14, chance_critical_damage = 70, hp = 110, attack = 13):
-        super().__init__(protection, critical_damage, chance_critical_damage, hp, attack)
+    hp = 21
+    attack = 6
+    protection = 12
+    critical_damage = 4
+    chance_critical_damage = 0.8
+
+    def __init__(self):
+        super().__init__()
