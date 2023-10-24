@@ -3,7 +3,7 @@ class CharacterUnit:
     attack = 5
     protection = 10
     critical_damage = 7
-    chance_critical_damage = 5
+    chance_critical_damage = 0.5
 
     def get_info(self):
         print("HP:", self.hp)
@@ -21,6 +21,9 @@ class CharacterUnit:
     def __gt__(self, other: "CharacterUnit"):
         return self.hp > other.hp
 
+    def fight(self, enemy):
+        enemy.hp = enemy.hp - self.attack
+
     def arena_fight(self, enemy):
         while self.hp > 0 and enemy.hp > 0:
             self.fight(enemy)
@@ -32,16 +35,25 @@ class CharacterUnit:
             elif enemy.hp <= 0:
                 print(f'{enemy} dead, {self} winner')
 
-    def fight(self, enemy):
-        enemy.hp = enemy.hp - self.attack
+    def critical_dmg(self, enemy):
+        enemy.hp = enemy.hp - (self.attack * self.critical_damage)
+
+    def protect(self, enemy):
+        self.attack = self.attack - enemy.protection
+
+
+class Fighting(CharacterUnit):
+
+    def __init__(self):
+        super().__init__()
 
 
 class Swordsman(CharacterUnit):
     hp = 20
     attack = 5
     protection = 10
-    critical_damage = 7
-    chance_critical_damage = 5
+    critical_damage = 1.6
+    chance_critical_damage = 0.5
 
     def __init__(self):
         super().__init__()
@@ -51,7 +63,7 @@ class Bowman(CharacterUnit):
     hp = 19
     attack = 4
     protection = 10
-    critical_damage = 6
+    critical_damage = 1.2
     chance_critical_damage = 0.6
 
     def __init__(self):
@@ -62,7 +74,7 @@ class Magician(CharacterUnit):
     hp = 21
     attack = 6
     protection = 12
-    critical_damage = 4
+    critical_damage = 1.5
     chance_critical_damage = 0.8
 
     def __init__(self):
